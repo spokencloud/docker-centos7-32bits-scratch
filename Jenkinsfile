@@ -8,6 +8,8 @@ pipeline {
             steps {
                 checkout scm
                 sh '''
+sudo docker rm centos7-32-fs-build-run
+sudo docker rmi -f centos7-32-fs-build
 sudo docker build -t centos7-32-fs-build .
 sudo docker run -i --privileged --name=centos7-32-fs-build-run -v /tmp:/tmp centos7-32-fs-build
 sudo docker rm centos7-32-fs-build-run
