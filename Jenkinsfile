@@ -16,8 +16,12 @@ sudo docker rm -f centos7-32-fs-build-run
 sudo docker rmi -f centos7-32-fs-build
 cd centos7-32-base
 cp /tmp/centos7.tar.bz2 .
-sudo docker build -t spokencloud-spoken-docker.jfrog.io/centos7-32-base .
-sudo docker push spokencloud-spoken-docker.jfrog.io/centos7-32-base
+gitbranch=$(git rev-parse --abbrev-ref HEAD)
+githash=$(git rev-parse --short HEAD)
+sudo docker build -t spokencloud-spoken-docker.jfrog.io/centos7-32-base:"$gitbranch-latest" .
+sudo docker push spokencloud-spoken-docker.jfrog.io/centos7-32-base:"$gitbranch-latest"
+sudo docker tag spokencloud-spoken-docker.jfrog.io/centos7-32-base:"$gitbranch-latest" spokencloud-spoken-docker.jfrog.io/centos7-32-base:"$gitbranch-$githash"
+sudo docker push spokencloud-spoken-docker.jfrog.io/centos7-32-base:"$gitbranch-$githash"
 '''
             }
         }
